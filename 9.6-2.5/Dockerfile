@@ -12,7 +12,12 @@ RUN apt-get update \
            postgis=$POSTGIS_VERSION \
       && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y aptitude  \
+      && aptitude update \
+      && aptitude install -y nano axel wput screen p7zip-full osmium-tool \
+      htop vnstat gdal-bin
+
+
 RUN mkdir -p /docker-entrypoint-initdb.d
 COPY ./initdb-postgis.sh /docker-entrypoint-initdb.d/postgis.sh
 COPY ./update-postgis.sh /usr/local/bin
-
